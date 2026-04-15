@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBS Project Ideation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init("0x5SKBwC9196HH5Y1");</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:       #006FCF;   /* Amex Blue */
+    --navy:       #00175A;   /* Amex Deep Navy */
+    --gold:       #B8975A;   /* Amex Gold */
+    --blue-light: #EEF4FB;   /* Pale blue bg */
+    --blue-mid:   #C8DCF0;   /* Divider / border */
+    --blue-dark:  #002677;   /* Mid navy */
+    --white:      #ffffff;
+    --muted:      #4A6FA5;
+    --text:       #00175A;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  /* HERO */
+  .hero { background: var(--navy); position: relative; overflow: hidden; padding: 80px 24px 100px; text-align: center; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 55%, rgba(0,111,207,0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 45% 55% at 85% 25%, rgba(184,151,90,0.2) 0%, transparent 70%);
+  }
+  .hero-tag { display: inline-block; border: 1.5px solid var(--gold); color: var(--gold); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 6px 20px; border-radius: 100px; margin-bottom: 28px; position: relative; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 900; color: var(--white); line-height: 1.05; position: relative; margin-bottom: 16px; }
+  .hero h1 span { color: var(--blue); }
+  .hero-sub { font-size: clamp(1rem, 2.5vw, 1.25rem); color: rgba(255,255,255,0.6); font-weight: 300; position: relative; margin-bottom: 14px; letter-spacing: 0.5px; }
+  .hero-divider { width: 80px; height: 3px; background: var(--gold); margin: 0 auto 36px; position: relative; border-radius: 2px; }
+  .hero-pillars { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; position: relative; }
+  .pillar { background: rgba(0,23,90,0.5); border: 1.5px solid var(--gold); color: rgba(255,255,255,0.9); padding: 10px 24px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; backdrop-filter: blur(6px); transition: background 0.25s, border-color 0.25s; }
+  .pillar:hover { background: rgba(0,111,207,0.3); border-color: var(--blue); }
+
+  .wave { display: block; width: 100%; background: var(--navy); line-height: 0; }
+  .wave svg { display: block; }
+
+  /* FORM SECTION */
+  .form-section { background: var(--blue-light); padding: 72px 24px 80px; }
+  .section-label { text-align: center; font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: var(--navy); margin-bottom: 10px; line-height: 1.15; }
+  .section-desc { text-align: center; color: var(--muted); font-size: 0.95rem; margin-bottom: 52px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+  .form-card { background: var(--white); border-radius: 20px; box-shadow: 0 4px 40px rgba(0,23,90,0.1), 0 1px 3px rgba(0,0,0,0.06); max-width: 700px; margin: 0 auto; padding: 48px 40px 52px; border: 1px solid var(--blue-mid); }
+  @media (max-width: 600px) { .form-card { padding: 32px 20px 36px; } }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label { font-size: 0.78rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; }
+  .required { color: var(--blue); margin-left: 2px; }
+
+  input, textarea { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); background: var(--blue-light); border: 1.5px solid var(--blue-mid); border-radius: 10px; padding: 12px 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; width: 100%; }
+  input:focus, textarea:focus { border-color: var(--blue); background: var(--white); box-shadow: 0 0 0 3px rgba(0,111,207,0.12); }
+  textarea { resize: vertical; min-height: 110px; }
+
+  .step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--blue); color: white; font-size: 11px; font-weight: 700; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+  .field-hint { font-size: 0.75rem; color: var(--muted); }
+
+  .form-divider { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; margin: 8px 0 4px; }
+  .form-divider span { font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .form-divider::before, .form-divider::after { content: ''; flex: 1; height: 1px; background: var(--blue-mid); }
+
+  .submit-wrap { grid-column: 1 / -1; margin-top: 10px; }
+  .btn-submit { width: 100%; background: var(--blue); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; padding: 16px; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s, background 0.2s; box-shadow: 0 4px 18px rgba(0,111,207,0.35); display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .btn-submit:hover:not(:disabled) { background: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,23,90,0.35); }
+  .btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+  .spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+  .btn-submit.loading .spinner { display: block; }
+  .btn-submit.loading .btn-label { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-banner { grid-column: 1/-1; background: #fef2f2; border: 1px solid #fca5a5; border-radius: 10px; padding: 12px 16px; color: #991b1b; font-size: 0.88rem; display: none; }
+  .error-banner.show { display: block; }
+
+  /* SUCCESS OVERLAY */
+  .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,23,90,0.8); backdrop-filter: blur(6px); z-index: 999; align-items: center; justify-content: center; padding: 24px; }
+  .success-overlay.show { display: flex; }
+  .success-card { background: var(--white); border-radius: 20px; padding: 52px 40px; text-align: center; max-width: 440px; width: 100%; animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; border-top: 4px solid var(--gold); }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+  .success-icon { width: 72px; height: 72px; background: var(--blue-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 2.2rem; }
+  .success-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 10px; }
+  .success-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.65; }
+  .success-meta { background: var(--blue-light); border-radius: 10px; padding: 12px 16px; font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; text-align: left; line-height: 1.9; border-left: 3px solid var(--gold); }
+  .success-meta strong { color: var(--blue); }
+  .btn-close { background: var(--blue); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; padding: 13px 32px; border: none; border-radius: 10px; cursor: pointer; transition: background 0.2s; }
+  .btn-close:hover { background: var(--navy); }
+
+  footer { background: var(--navy); text-align: center; padding: 28px 24px; color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+  footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Innovation Program</div>
+  <h1>SBS Project<br><span>Ideation</span></h1>
+  <p class="hero-sub">Ideate &nbsp;·&nbsp; Innovate &nbsp;·&nbsp; Execute</p>
+  <div class="hero-divider"></div>
+  <div class="hero-pillars">
+    <div class="pillar">💡 Ideate</div>
+    <div class="pillar">🚀 Innovate</div>
+    <div class="pillar">⚙️ Execute</div>
+  </div>
+</section>
+
+<div class="wave">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#EEF4FB"/>
+  </svg>
+</div>
+
+<!-- FORM -->
+<section class="form-section">
+  <p class="section-label">Submit Your Ideas</p>
+  <h2 class="section-title">Share Your Idea Today</h2>
+  <p class="section-desc">Fill in the details below — a notification will be sent to the team instantly on every submission.</p>
+
+  <div class="form-card">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label><span class="step-badge">1</span>Your Name <span class="required">*</span></label>
+        <input type="text" id="name" placeholder="e.g. Priya Sharma">
+      </div>
+
+      <div class="form-group">
+        <label><span class="step-badge">2</span>TL Name <span class="required">*</span></label>
+        <input type="text" id="tlName" placeholder="Team Leader's name">
+      </div>
+
+      <div class="form-divider full"><span>Process Details</span></div>
+
+      <div class="form-group full">
+        <label><span class="step-badge">3</span>Process Name / LOB <span class="required">*</span></label>
+        <input type="text" id="processLob" placeholder="e.g. Claims Processing — Retail LOB">
+        <span class="field-hint">Enter the process name and Line of Business</span>
+      </div>
+
+      <div class="form-group full">
+        <label><span class="step-badge">4</span>Problem Statement <span class="required">*</span></label>
+        <textarea id="problemStatement" placeholder="Describe the problem clearly. What is the current pain point? Who is affected?"></textarea>
+      </div>
+
+      <div class="form-divider full"><span>Your Solution</span></div>
+
+      <div class="form-group full">
+        <label><span class="step-badge">5</span>Your Idea <span class="required">*</span></label>
+        <textarea id="idea" placeholder="Describe your idea or proposed solution in detail…"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label><span class="step-badge">6</span>Impact on Problem Statement Post Execution <span class="required">*</span></label>
+        <textarea id="impact" placeholder="What measurable impact will this idea have after execution? (e.g. reduced TAT by 30%…)"></textarea>
+      </div>
+
+      <div class="error-banner full" id="errorBanner">⚠️ Please fill in all required fields before submitting.</div>
+
+      <div class="submit-wrap">
+        <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+          <div class="spinner"></div>
+          <span class="btn-label" style="display:flex;align-items:center;gap:9px;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Submit My Idea
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">🎉</div>
+    <h3>Idea Submitted!</h3>
+    <p>Your idea has been recorded and a notification has been sent to the team.</p>
+    <div class="success-meta" id="successMeta"></div>
+    <button class="btn-close" onclick="closeSuccess()">Submit Another Idea</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 &nbsp;<span>SBS Project Ideation</span> &nbsp;·&nbsp; Ideate · Innovate · Execute
+</footer>
+
+<script>
+  var FIELDS = ['name','tlName','processLob','problemStatement','idea','impact'];
+
+  function handleSubmit() {
+    var valid  = true;
+    var banner = document.getElementById('errorBanner');
+
+    FIELDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#006FCF';
+        el.style.boxShadow   = '0 0 0 3px rgba(0,111,207,0.15)';
+        valid = false;
+      } else {
+        el.style.borderColor = '#22c55e';
+        el.style.boxShadow   = '0 0 0 3px rgba(34,197,94,0.12)';
+      }
+    });
+
+    if (!valid) { banner.classList.add('show'); return; }
+    banner.classList.remove('show');
+
+    var templateParams = {
+      name:              document.getElementById('name').value.trim(),
+      tl_name:           document.getElementById('tlName').value.trim(),
+      process_lob:       document.getElementById('processLob').value.trim(),
+      problem_statement: document.getElementById('problemStatement').value.trim(),
+      idea:              document.getElementById('idea').value.trim(),
+      impact:            document.getElementById('impact').value.trim()
+    };
+
+    var btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    emailjs.send("service_kistlhb", "template_1e34o01", templateParams)
+      .then(function() {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        document.getElementById('successMeta').innerHTML =
+          '<strong>Name:</strong> '         + templateParams.name        + '<br>' +
+          '<strong>TL Name:</strong> '       + templateParams.tl_name     + '<br>' +
+          '<strong>Process / LOB:</strong> ' + templateParams.process_lob + '<br>' +
+          '<strong>Notified:</strong> indu.bala1@amex.com ✅';
+        document.getElementById('successOverlay').classList.add('show');
+      }, function(error) {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        alert('Failed to send. Error: ' + JSON.stringify(error));
+      });
+  }
+
+  function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('show');
+    FIELDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      el.value = '';
+      el.style.borderColor = '';
+      el.style.boxShadow   = '';
+    });
+  }
+</script>
+</body>
+</html>
